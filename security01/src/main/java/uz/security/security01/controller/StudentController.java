@@ -36,4 +36,9 @@ public class StudentController {
                 .orElseThrow(() -> new IllegalArgumentException("Student " + studentId + " does not exists!"));
     }
 
+    @GetMapping(path = "")
+    public List<Student> getAllStudent() {
+        return STUDENTS.stream().toList();
+    }
+
 }
