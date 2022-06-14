@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static uz.security.security01.model.enums.Roles.*;
+
 /**
  * Developed by Jaxongir Abdusalomov
  * Date : 10.06.2022
@@ -30,12 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private static final String[] PATH = {
+            "/", "index", "/css/*", "/js/*"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*")
-                .permitAll()
+                .antMatchers(PATH) .permitAll()
+                .antMatchers("/api/**") .hasAnyRole(STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -43,17 +49,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Override
     protected UserDetailsService userDetailsService() {
-         UserDetails newUserJaxongir = User.builder()
+        UserDetails newUserJaxongir = User.builder()
                 .username("jaxongir")
-                .password(passwordEncoder.encode("0000" ))
-                .roles("STUDENT")
+                .password(passwordEncoder.encode("0000"))
+                .roles(STUDENT.name())
+                .build();
+
+        UserDetails newAzamatUser = User.builder()
+                .username("azamat")
+                .password(passwordEncoder.encode("zamat"))
+                .roles(ADMIN.name())
                 .build();
 
         return new InMemoryUserDetailsManager(
-                newUserJaxongir
-        );
+                newUserJaxongir, newAzamatUser
+         );
     }
 
 }

@@ -22,16 +22,16 @@ import java.util.List;
 public class StudentController {
 
     private static final List<Student> STUDENTS = Arrays.asList(
-            new Student(1, "Jaxongir"),
-            new Student(2, "Azamatjon"),
-            new Student(3, "Sardor")
+            new Student(1, "Jaxongir", "Software Engineer"),
+            new Student(2, "Azamatjon", "Java Backend Developer"),
+            new Student(3, "Sardor", "Android Developer")
     );
 
     @GetMapping(path = "{studentId}")
     public Student getStudent(@PathVariable Integer studentId) {
         return STUDENTS
                 .stream()
-                .filter(student -> studentId.equals(student.getStudentId()))
+                .filter(student -> studentId.equals(student.studentId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Student " + studentId + " does not exists!"));
     }
