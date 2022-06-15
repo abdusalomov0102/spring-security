@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uz.security.security01.model.Student;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static uz.security.security01.utils.Constants.PATH_STUDENT;
+import static uz.security.security01.utils.Constants.*;
 
 /**
  * Developed by Jaxongir Abdusalomov
@@ -21,12 +18,6 @@ import static uz.security.security01.utils.Constants.PATH_STUDENT;
 @RestController
 @RequestMapping(PATH_STUDENT)
 public class StudentController {
-
-    private static final List<Student> STUDENTS = Arrays.asList(
-            new Student(1, "Jaxongir", "Software Engineer"),
-            new Student(2, "Azamatjon", "Java Backend Developer"),
-            new Student(3, "Sardor", "Android Developer")
-    );
 
     @GetMapping(path = "{studentId}")
     public Student getStudent(@PathVariable Integer studentId) {
