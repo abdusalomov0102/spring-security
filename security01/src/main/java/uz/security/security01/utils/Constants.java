@@ -9,6 +9,6 @@ package uz.security.security01.utils;
 
 public class Constants {
 
-    public static final String BASE_PATH = "/api/v1";
+    public static final String PATH_STUDENT = "/api/v1/students";
 
 }

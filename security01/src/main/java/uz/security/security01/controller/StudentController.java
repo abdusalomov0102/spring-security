@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uz.security.security01.model.Student;
-import uz.security.security01.utils.Constants;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static uz.security.security01.utils.Constants.PATH_STUDENT;
 
 /**
  * Developed by Jaxongir Abdusalomov
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(Constants.BASE_PATH + "/students")
+@RequestMapping(PATH_STUDENT)
 public class StudentController {
 
     private static final List<Student> STUDENTS = Arrays.asList(
@@ -34,11 +35,6 @@ public class StudentController {
                 .filter(student -> studentId.equals(student.studentId()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Student " + studentId + " does not exists!"));
-    }
-
-    @GetMapping(path = "")
-    public List<Student> getAllStudent() {
-        return STUDENTS.stream().toList();
     }
 
 }
