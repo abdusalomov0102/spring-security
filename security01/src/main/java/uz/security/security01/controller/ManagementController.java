@@ -4,6 +4,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.security.security01.model.Student;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static uz.security.security01.utils.Constants.*;
@@ -23,16 +25,22 @@ public class ManagementController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
     public List<Student> getAllStudent() {
-        return STUDENTS
-                .stream()
-                .toList();
+        return STUDENTS.stream().toList();
     }
 
     @PostMapping(path = "")
     @PreAuthorize("hasAuthority('student:write')")
-    public void registerNewStudent(@RequestBody Student student) {
+    public List<Student> registerNewStudent(@RequestBody Student student) {
         System.out.println("Register New Student!");
-        System.out.println(student);
+        Student maxStudentId = STUDENTS.stream().max(Comparator.comparing(Student::studentId)).get();
+        int i = maxStudentId.studentId() + 1;
+        Student newStudent = new Student(i, student.studentName(), student.description());
+        List<Student> studentList = new ArrayList<>(STUDENTS);
+        studentList.add(newStudent);
+        System.out.println(studentList);
+        return studentList
+                .stream()
+                .toList();
     }
 
     @DeleteMapping(path = "{studentId}")
