@@ -1,5 +1,7 @@
 package uz.security.security01.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.security.security01.model.Student;
@@ -21,11 +23,19 @@ import static uz.security.security01.utils.Constants.*;
 @RequestMapping("management" + PATH_STUDENT)
 public class ManagementController {
 
+    private static final Logger logger = LogManager.getLogger(ManagementController.class);
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
     public List<Student> getAllStudent() {
-        return STUDENTS.stream().toList();
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+        return STUDENTS
+                .stream()
+                .toList();
     }
 
     @PostMapping(path = "")

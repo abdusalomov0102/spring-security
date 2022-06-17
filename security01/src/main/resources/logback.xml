@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property name="DIRECTORY_NAME" value="./logs"/>
+    <property name="LOG_FILE_NAME" value="spring-security"/>
+
+    <include resource="logback-common.xml"/>
+
+</configuration>
