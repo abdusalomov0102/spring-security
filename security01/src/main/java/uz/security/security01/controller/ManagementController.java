@@ -28,11 +28,11 @@ public class ManagementController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
     public List<Student> getAllStudent() {
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
+        logger.trace("A TRACE Message from Management Controller!");
+        logger.debug("A DEBUG Message from Management Controller!");
+        logger.info("An INFO Message from Management Controller!");
+        logger.warn("A WARN Message from Management Controller!");
+        logger.error("An ERROR Message from Management Controller!");
         return STUDENTS
                 .stream()
                 .toList();

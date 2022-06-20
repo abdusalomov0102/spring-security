@@ -43,14 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
-                .disable() 
+                .disable()
                 .authorizeRequests()
                 .antMatchers(PATH).permitAll()
                 .antMatchers("/api/**").hasAnyRole(STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin();
     }
 
     @Bean
